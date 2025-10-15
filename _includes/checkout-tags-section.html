@@ -1,0 +1,31 @@
+<section class="home-tag-blade">
+  <header>
+    <h2>Popular Topics</h2>
+    <p>Explore our most frequently discussed topics.</p>
+  </header>
+
+  {% assign topic_tags = site.data.tag_frequencies | where_exp: "item", "item[0] contains 'topic/'" %}
+  {% assign top_tags = topic_tags | slice: 0, 10 %}
+
+  {% if top_tags.size > 0 %}
+  <ul class="popular-tags">
+    {% for pair in top_tags %}
+      {% assign full_tag = pair[0] %}
+      {% assign count = pair[1] %}
+      {% assign ns = full_tag | split: "/" | first %}
+      {% assign tag = full_tag | split: "/" | last %}
+      {% assign slug = tag | downcase | replace: " ", "-" | replace: "_", "-" | replace: "/", "-" %}
+      <li>
+        <a href="{{ site.baseurl }}/tags/{{ ns }}/{{ slug }}/">{{ tag | capitalize }}</a>
+        <small>({{ count }})</small>
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p><small>No topic tags found.</small></p>
+  {% endif %}
+
+  <footer>
+    <a href="{{ site.baseurl }}/tags/topic/" class="all-tags-link">View all topics →</a>
+  </footer>
+</section>

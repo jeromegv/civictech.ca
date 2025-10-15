@@ -80,3 +80,18 @@ done
 } > "$FINAL_TAGS"
 
 echo "🎉 Tags written to $FINAL_TAGS"
+
+# --- New Section: Count tag frequencies (with numeric sort) ---
+echo "📊 Counting tag frequencies..."
+
+FREQ_FILE="_data/tag_frequencies.yml"
+
+awk '
+  NF { counts[$0]++ }
+  END {
+    for (t in counts)
+      printf "%s: %d\n", t, counts[t]
+  }
+' "$TMP_TAGS" | sort -t: -k2,2nr > "$FREQ_FILE"
+
+echo "📈 Tag frequencies written to $FREQ_FILE"

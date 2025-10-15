@@ -196,6 +196,8 @@ layout: homepage
 
 </section>
 
+{% include checkout-tags-section.html %}
+
 <!-- === Call to Actions ===  -->
 
 <section>
